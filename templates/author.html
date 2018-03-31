@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Author</title>
+
+
+   
+</head>
+<body>
+<center>
+	<h1>
+		Manage your books
+		<hr>
+      <br><a href="/authorlogout">Logout</a>
+		<table border = 1>
+         <thead>
+         
+            
+            <td>Author Name</td>
+            <td>Book name</td>
+            <td>MRP</td>
+            <td>Previous Balance</td>
+            <td> Copies Printed</td>
+            <td>Total Copies</td>
+            <td>Specimen Issued</td>
+            <td>Copies sold</td>
+            <td>Balance stock</td>
+            <td>Royalty rate</td>
+            <td>Royalty amount</td>
+            
+
+            {% for row in rows %}
+            <tr>
+               
+               <td>{{row["authorname"]}}</td>
+               <td> {{ row["book"]}}</td>
+               <td>{{row["mrp"]}}</td>
+               <td> {{ row["previous_bal"]}}</td>
+               <td>{{row["copyprinted"]}}</td>  
+               <td>{{row["total_copy"]}}</td>
+               <td>{{row["specimen"]}}</td>
+               <td> {{ row["copy_sold"]}}</td>
+               <td>{{row["balancestock"]}}</td>
+               <td> {{ row["royalty_rate"]}}</td>
+               <td>{{row["royalty_amount"]}}</td>
+            </tr>
+         {% endfor %}
+         </thead>
+	</h1><br>
+	
+</center>
+</body>
+</html>

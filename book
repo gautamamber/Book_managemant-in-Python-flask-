@@ -1,0 +1,196 @@
+@app.route('/update', methods = ['POST' , 'GET'])
+def update():
+	if request.method == 'POST':
+		bid = request.form['bid']
+		aid = request.form['aid']
+		aname = request.form['aname']
+		bname = request.form['bname']
+		mrp = request.form['mrp']
+		pbalance = request.form['pbalance']
+		cprinted = request.form['cprinted']
+		tcopies = request.form['tcopies']
+		sissued = request.form['sissued']
+		csold = request.form['csold']
+		bstock = request.form['bstock']
+		rrate = request.form['rrate']
+		ramount = request.form['ramount']
+		
+		with sqlite3.connect('book.db') as con:
+			cur = con.cursor()
+			cur.execute('UPDATE operator SET authorId = ? , authorname = ? , book = ? , mrp = ?, previous_bal = ?, copyprinted = ?, total_copy = ?, specimen = ?, copy_sold = ? , balancestock = ?, royalty_rate = ?, royalty_amount = ? WHERE bookid = ?', (aid, aname, bname, mrp, pbalance, cprinted, tcopies ,sissued, csold, bstock, rrate, ramount))
+			
+			con.commit()
+	return render_template('update.html')
+
+
+
+
+
+	@app.route('/update', methods = ['POST' , 'GET'])
+def update():
+	
+	if request.method == 'POST':
+		idd = request.form['id']
+		name = request.form['name']
+		book = request.form['book']
+		total = request.form['total']
+		sold = request.form['sold']
+		unsold = request.form['unsold']
+		price = request.form['price']
+		with sqlite3.connect('book.db') as con:
+			cur = con.cursor()
+			cur.execute('UPDATE mybook SET name = ?, book = ? , total = ?, sold = ?, unsold = ?, price = ? WHERE id = ?' ,(name,book,total,sold,unsold,price,idd))
+			con.commit()
+	return render_template('update.html')
+
+
+
+	cur.execute("SELECT operator_bookdata.bookid, operator_bookdata.authorID, operator_bookdata.authorname, operator_bookdata.book, operator_bookdata.mrp, operator_bookdata.previous_bal, operator_bookdata.copyprinted, operator_bookdata.total_copy, operator_bookdata.specimen, operator_bookdata.copy_sold, operator_bookdata.balancestock, operator_bookdata.royalty_rate, operator_bookdata.royalty_amount FROM operator_bookdata, users WHERE operator_bookdata.userid = users.userid AND operator_bookdata.userid = " + str(userid))
+
+
+	cur.execute("SELECT operator_bookdata.bookid, operator_bookdata.authorID, operator_bookdata.authorname, operator_bookdata.book, operator_bookdata.mrp, operator_bookdata.previous_bal, operator_bookdata.copyprinted, operator_bookdata.total_copy, operator_bookdata.specimen, operator_bookdata.copy_sold, operator_bookdata.balancestock, operator_bookdata.royalty_rate, operator_bookdata.royalty_amount FROM operator_bookdata, users WHERE operator_bookdata.userid = users.userid AND operator_bookdata.userid = " + str(userid))
+
+
+
+
+	"""
+@app.route('/operatorlogin', methods = ['POST', 'GET'])
+def oplogin():
+	if request.method == 'POST':
+		username= request.form['username']
+		password = request.form['password']
+		con = sqlite3.connect("book.db")
+		cur = con.cursor()
+		cur.execute('SELECT  username, password FROM users')
+		data = cur.fetchall()
+		for row in data:
+			if row[0] == username and row[1] == password:
+				session['logged_in'] = True
+				session['username'] = username
+				return redirect(url_for("index"))
+			else:
+				error = "sorry"
+				return render_template("operatorlogin.html" , error = error)
+			cur.close()
+	return render_template("operatorlogin.html")
+
+"""
+
+
+
+#Just practice code
+"""
+		if result > 0:
+			data = cur.fetchone()
+			password = data['password']
+			if password:
+				session['logged_in'] = True
+				session['username'] = username
+				
+				return redirect(url_for('index'))
+			else:
+				error = "sorry"
+				return render_template("operatorlogin.html" , error = error)
+			cur.close()
+		else:
+			msg = "username not found"
+			return render_template("operatorlogin.html" , msg = msg)"""
+
+			"""
+@app.route('/authorlogin', methods = ['GET', 'POST'])
+def aulogin():
+	if request.method == 'POST':
+		authorid = request.form['authorid']
+		password = request.form['password']
+		with sqlite3.connect('book.db') as con:
+			cur = con.cursor()
+			result = cur.execute('SELECT keyid,authorid,password FROM author')
+
+			if result > 0:
+				data = cur.fetchall()
+				password = data[2]
+				if password:
+
+					for each in data:
+
+						session['authorid'] = authorid
+						a = session['keyid'] = each[0]
+			
+					
+					
+						print(type(app.logger.info(a)))
+					
+						return redirect(url_for("get_data"))
+				else:
+					return render_template("authorlogin.html")
+			else:
+				return render_template("authorlogin.html")
+			
+
+	return render_template('authorlogin.html')
+	"""
+""" OLD AUTHOR
+@app.route('/authorlogin', methods = ['POST', 'GET'])
+def aulogin():
+	if request.method == 'POST':
+		authorid= request.form['authorid']
+		password = request.form['password']
+		con = sqlite3.connect("book.db")
+		cur = con.cursor()
+		cur.execute('SELECT   authorid, password FROM author')
+		data = cur.fetchall()
+		for row in data:
+			if row[0] == authorid and row[1] == password:
+				session['logged_in'] = True
+				
+				a = session['authorid'] = authorid 
+				
+				print(type(app.logger.info((a))))
+				return redirect(url_for("get_data"))
+			else:
+				error = "sorry"
+				return render_template("authorlogin.html" , error = error)
+			cur.close()
+	return render_template("authorlogin.html")
+"""
+"""
+
+
+
+
+
+
+    #Author registration check
+
+
+    """
+
+#NEW AUTHR =============================
+
+
+@app.route('/authorlogin', methods = ['GET', 'POST'])
+def aulogin():
+	if request.method == 'POST':
+		authorid = request.form['authorid']
+		password = request.form['password']
+		with sqlite3.connect('book.db') as con:
+			cur = con.cursor()
+			result = cur.execute('SELECT key_authorid,authorid,password FROM author')
+			if result > 0:
+				data = cur.fetchall()
+				for each in data:
+
+					if each[1] == authorid and each[2] == password:
+						session['logged_in'] = True
+						a = session['authorid'] = authorid
+
+						print(type(app.logger.info(a)))
+						return redirect(url_for("get_data"))
+			else:
+				return render_template("authorloginlogin.html")
+			
+
+	return render_template('authorlogin.html')
+
+
+"""
